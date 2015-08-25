@@ -1,9 +1,10 @@
+(add-to-list 'load-path "~/.emacs.d")
 ;; MELPA
-;; list-packages i install x execute U update
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(package-initialize)
+;; ; list-packages i install x execute U update
+;;  (require 'package)
+;;  (add-to-list 'package-archives
+;;               '("melpa" . "http://melpa.milkbox.net/packages/") t)
+;;  (package-initialize)
 
 
 ;; disable interprogram cut/paste, which I fucking hate:
@@ -17,22 +18,22 @@
 
 (setq-default indent-tabs-mode nil)
 
-(add-to-list 'load-path "~/.emacs.d")
+
 (add-to-list 'load-path "~/.emacs.d/jade-mode")
 (add-to-list 'load-path "~/.emacs.d/enhanced-ruby-mode")
-(add-to-list 'load-path "~/.emacs.d/egg")
+;; (add-to-list 'load-path "~/.emacs.d/egg")
 (add-to-list 'load-path "~/.emacs.d/elisp/cucumber.el")
 (add-to-list 'load-path "~/.emacs.d/elisp/markdown-mode")
 
-(require 'egg)
-(require 'feature-mode)
+;; (require 'egg)
+;; (require 'feature-mode)
 
 (autoload 'hobo-register-agent "hobo" "" t)
 (autoload 'hobo-register-agent-from-file "hobo" "" t)
 (autoload 'hobo-find-file "hobo" "" t)
 
 
-(require 'tramp)
+;; (require 'tramp)
 (setq tramp-default-method "ssh")
 (setq default-tab-width 2)
 ;; (add-to-list 'load-path "~/.emacs.d/actionscript-mode.connors")
