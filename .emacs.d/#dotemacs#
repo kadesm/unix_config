@@ -1,0 +1,340 @@
+(add-to-list 'load-path "~/.emacs.d")
+
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
+(iswitchb-mode)
+(if (boundp 'tool-bar-mode)
+    (tool-bar-mode))
+
+(global-set-key [?\M-\]] 'kill-paragraph)
+(global-set-key [?\M-3] 'call-last-kbd-macro)
+(global-set-key [?\C-j] 'comment-indent-new-line)
+
+(put 'downcase-region 'disabled nil)
+
+(add-to-list 'load-path "~/.emacs.d/slime")
+(setq inferior-lisp-program "/opt/local/bin/sbcl")
+(require 'slime)
+(slime-setup)
+
+(add-to-list 'load-path "~/.emacs.d/git-emacs")
+;(require 'git-emacs)
+
+(load "~/.emacs.d/haskell-mode/haskell-site-file")
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+
+(setq auto-mode-alist
+      (append
+       '(("\\.pl$" . prolog-mode))
+       auto-mode-alist))
+(setq prolog-program-name "swipl")
+;(setq prolog-consult-string "[user].\n")
+
+(add-to-list 'load-path "~/.emacs.d/cc-mode")
+;;(global-set-key [C-c C-l] 'compile)
+(autoload 'awk-mode "cc-mode" nil t)
+
+(add-to-list 'load-path "~/.emacs.d/d-mode")
+(autoload 'd-mode "d-mode"
+  "Major mode for editing D code." t)
+(setq auto-mode-alist (cons '( "\\.d\\'" . d-mode ) auto-mode-alist ))
+(autoload 'dlint-minor-mode "dlint" nil t)
+(add-hook 'd-mode-hook (lambda () (dlint-minor-mode 1)))
+
+(add-to-list 'load-path "~/.emacs.d/ess/lisp")
+(require 'ess-site)
+
+(defun word-count nil "Count words in buffer" (interactive)
+  (shell-command-on-region (point-min) (point-max) "wc -w"))
+
+(setq load-path (cons "~/.emacs.d/emacs-rails" load-path))
+(require 'rails)
+
+(require 'yaml-mode)
+
+;; file last-edited-point saving
+(require 'saveplace)
+(setq-default save-place t)
+(defvar save-place-file (convert-standard-filename "~/.emacs.d/.saveplace")
+  "*Name of the file that records `save-place-alist' value.")
+
+;; minibuffer history saving
+;(setq savehist-file "~/.emacs.d/.savehist")
+;(savehist-mode 1)
+
+;; open file saving
+;;(require 'save-visited-files)
+;;(open-visited-files)
+;;(save-visited-files-mode 1)
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(require 'tramp)
+(setq tramp-default-method "ssh")
+;; /service2.retailinkjet.com:/home/dls/api.retailinkjet.com
+
+(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+
+(add-hook 'javascript-mode-hook 'javascript-custom-setup)
+(defun javascript-custom-setup ()
+  (moz-minor-mode 1))
+
+(require 'haml-mode)
+
+(load "typing-speed.el")
+
+
+(add-to-list 'load-path "~/.emacs.d/org-6.34c")
+(add-to-list 'load-path "~/.emacs.d/org-6.34c/lisp")
+
+(require 'org-install)
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+(setq org-log-done t)
+
+(setq org-agenda-files (list "~/org/etc.org" "~/org/log.org"))
+
+;;; --- trac integration
+;; (require 'trac-wiki)
+;; (trac-wiki-define-project "project-trac"
+;; "https://trac.project.com/trac"; "username")
+;; (autoload 'trac-wiki "trac-wiki" "Trac wiki editing entry-point." t)
+;; ;;; - start orgstruct minor mode when trac-wiki is loaded.
+;; (add-hook 'trac-wiki-mode-hook 'turn-on-orgstruct)
+
+
+(add-hook 'dired-load-hook
+	  (function (lambda ()
+		      (load "dired-x")
+		      ;; Set global variables here.  For example:
+		      ;; (setq dired-guess-shell-gnutar "gtar")
+		      )))
+
+(add-hook 'dired-mode-hook
+	  (function (lambda ()
+		      ;; Set buffer-local variables here.  For example:
+		      (dired-omit-mode 1)
+		      )))
+
+(add-to-list 'load-path "~/.emacs.d/epg")
+(require 'epa-file)
+(epa-file-enable)
+
+(add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
+(require 'color-theme)
+(require 'color-theme-autoloads)
+
+(load "~/.emacs.d/color-theme-6.6.0/themes/color-theme-library.el")
+
+;; (color-theme-gnome)
+;; (color-theme-blue-gnus)
+;; (color-theme-dark-gnus)
+;; (color-theme-blue-eshell)
+;; (color-theme-salmon-font-lock)
+;; (color-theme-dark-font-lock)
+;; (color-theme-dark-info)
+;; (color-theme-gnome2)
+;; (color-theme-simple-1)
+;; (color-theme-jonadabian)
+;; (color-theme-ryerson)
+;; (color-theme-wheat)
+;; (color-theme-standard)
+;; (color-theme-fischmeister)
+;; (color-theme-sitaramv-solaris)
+;; (color-theme-sitaramv-nt)
+;; (color-theme-billw)
+;; (color-theme-retro)
+;; (color-theme-retro-orange)
+;; (color-theme-subtle-hacker)
+;; (color-theme-pok-wog)
+;; (color-theme-pok-wob)
+;; (color-theme-blue-sea)
+;; (color-theme-rotor)
+;; (color-theme-pierson)
+;; (color-theme-xemacs)
+;; (color-theme-jsc-light)
+;; (color-theme-jsc-dark)
+;; (color-theme-greiner)
+;; (color-theme-jb-simple)
+;; (color-theme-beige-diff)
+;; (color-theme-standard-ediff)
+;; (color-theme-beige-eshell)
+;; (color-theme-goldenrod)
+;; (color-theme-ramangalahy)
+;; (color-theme-raspopovic)
+;; (color-theme-taylor)
+;; (color-theme-marquardt)
+;; (color-theme-parus)
+;; (color-theme-high-contrast)
+;; (color-theme-infodoc)
+;; (color-theme-classic)
+;; (color-theme-scintilla)
+;; (color-theme-gtk-ide)
+;; (color-theme-midnight)
+;; (color-theme-jedit-grey)
+;; (color-theme-snow)
+;; (color-theme-montz)
+;; (color-theme-aalto-light)
+;; (color-theme-aalto-dark)
+;; (color-theme-blippblopp)
+;; (color-theme-hober)
+;; (color-theme-bharadwaj)
+;; (color-theme-oswald)
+;; (color-theme-salmon-diff)
+;; (color-theme-robin-hood)
+;; (color-theme-snowish)
+;; (color-theme-dark-laptop)
+;; (color-theme-taming-mr-arneson)
+;; (color-theme-digital-ofs1)
+;; (color-theme-mistyday)
+;; (color-theme-marine)
+;; (color-theme-blue-erc)
+;; (color-theme-dark-erc)
+;; (color-theme-subtle-blue)
+;; (color-theme-dark-blue)
+;; (color-theme-jonadabian-slate)
+;; (color-theme-gray1)
+;; (color-theme-word-perfect)
+;; (color-theme-emacs-21)
+;; (color-theme-jsc-light2)
+;; (color-theme-ld-dark)
+;; (color-theme-deep-blue)
+;; (color-theme-kingsajz)
+;; (color-theme-comidia)
+;; (color-theme-katester)
+;; (color-theme-arjen)
+;; (color-theme-tty-dark)
+;; (color-theme-aliceblue)
+;; (color-theme-black-on-gray)
+;; (color-theme-dark-blue2)
+;; (color-theme-blue-mood)
+;; (color-theme-euphoria)
+;; (color-theme-resolve)
+;; (color-theme-xp)
+;; (color-theme-gray30)
+;; (color-theme-dark-green)
+;; (color-theme-whateveryouwant)
+;; (color-theme-bharadwaj-slate)
+;; (color-theme-lethe)
+;; (color-theme-shaman)
+;; (color-theme-emacs-nw)
+;; (color-theme-late-night)
+;; (color-theme-clarity)
+;; (color-theme-andreas)
+;; (color-theme-charcoal-black)
+;; (color-theme-vim-colors)
+;; (color-theme-calm-forest)
+;; (color-theme-lawrence)
+;; (color-theme-matrix)
+;; (color-theme-feng-shui)
+;; (color-theme-renegade)
+
+
+(color-theme-calm-forest)
+(color-theme-dark-laptop)
+
+
+;; lethe sets up better non-text highlighting that tty-dark doesn't overwrite
+;;(color-theme-lethe)
+;;(color-theme-clarity)
+
+;;(require 'color-theme-billc)
+;;(color-theme-billc)
+
+(defun color-theme-djcb-dark ()
+  "dark color theme created by djcb, Jan. 2009."
+  (interactive)
+  (color-theme-install
+    '(color-theme-djcb-dark
+       ((foreground-color . "#a9eadf")
+         (background-color . "black")
+         (background-mode . dark))
+       (bold ((t (:bold t))))
+       (bold-italic ((t (:italic t :bold t))))
+       (default ((t (nil))))
+
+       (font-lock-builtin-face ((t (:italic t :foreground "#a96da0"))))
+       (font-lock-comment-face ((t (:italic t :foreground "#bbbbbb"))))
+       (font-lock-comment-delimiter-face ((t (:foreground "#666666"))))
+       (font-lock-constant-face ((t (:bold t :foreground "#197b6e"))))
+       (font-lock-doc-string-face ((t (:foreground "#3041c4"))))
+       (font-lock-doc-face ((t (:foreground "gray"))))
+       (font-lock-reference-face ((t (:foreground "white"))))
+       (font-lock-function-name-face ((t (:foreground "#356da0"))))
+       (font-lock-keyword-face ((t (:bold t :foreground "#bcf0f1"))))
+       (font-lock-preprocessor-face ((t (:foreground "#e3ea94"))))
+       (font-lock-string-face ((t (:foreground "#ffffff"))))
+       (font-lock-type-face ((t (:bold t :foreground "#364498"))))
+       (font-lock-variable-name-face ((t (:foreground "#7685de"))))
+       (font-lock-warning-face ((t (:bold t :italic nil :underline nil
+                                     :foreground "yellow"))))
+       (hl-line ((t (:background "#112233"))))
+       (mode-line ((t (:foreground "#ffffff" :background "#333333"))))
+       (region ((t (:foreground nil :background "#555555"))))
+       (show-paren-match-face ((t (:bold t :foreground "#ffffff"
+                                    :background "#050505")))))))
+
+(require 'pretty-symbols)
+(add-hook 'haskell-mode-hook 'pretty-symbols-mode)
+
+(setq swapping-buffer nil)
+(setq swapping-window nil)
+
+(defun swap-buffers-in-windows ()
+  "Swap buffers between two windows"
+  (interactive)
+  (if (and swapping-window
+	   swapping-buffer)
+      (let ((this-buffer (current-buffer))
+	    (this-window (selected-window)))
+	(if (and (window-live-p swapping-window)
+		 (buffer-live-p swapping-buffer))
+	    (progn (switch-to-buffer swapping-buffer)
+		   (select-window swapping-window)
+		   (switch-to-buffer this-buffer)
+		   (select-window this-window)
+		   (message "Swapped buffers."))
+	  (message "Old buffer/window killed.  Aborting."))
+	(setq swapping-buffer nil)
+	(setq swapping-window nil))
+    (progn
+      (setq swapping-buffer (current-buffer))
+      (setq swapping-window (selected-window))
+      (message "Buffer and window marked for swapping."))))
+
+(global-set-key (kbd "C-c p") 'swap-buffers-in-windows)
+
+(require 'window-number)
+(window-number-mode)
+
+(if (boundp 'scroll-bar-mode)
+    (scroll-bar-mode))
+
+;;(server-start)
+(require 'org-protocol)
+
+(set-face-attribute 'default nil :height 80)
+
+(require 'js2-mode)
+
+;; I hate tabs
+(setq-default indent-tabs-mode nil)
+
+(add-to-list 'load-path "~/.emacs.d/tuareg-mode")
+(add-to-list 'load-path "~/.emacs.d/actionscript-mode.connors")
+
+(setq auto-mode-alist (cons '("\\.ml\\w?" . tuareg-mode) auto-mode-alist))
+(autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
+(autoload 'camldebug "camldebug" "Run the Caml debugger" t)
+
+(if (and (boundp 'window-system) window-system)
+    (when (string-match "XEmacs" emacs-version)
+       	(if (not (and (boundp 'mule-x-win-initted) mule-x-win-initted))
+            (require 'sym-lock))
+       	(require 'font-lock)))

@@ -1,0 +1,18 @@
+[user]
+	name = Daniel Staudigel
+	email = dstaudigel@gmail.com
+[core]
+	editor = emacs
+	mergeoptions = --no-ff
+[merge]
+	tool = opendiff
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+[credential]
+	helper = osxkeychain
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
