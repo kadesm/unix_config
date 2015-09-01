@@ -5,6 +5,8 @@
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
+(let ((default-directory "/usr/local/share/emacs/site-lisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
 
 ;; disable interprogram cut/paste, which I fucking hate:
 (setq interprogram-cut-function nil)
@@ -17,15 +19,14 @@
 
 (setq-default indent-tabs-mode nil)
 
-(add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/jade-mode")
 (add-to-list 'load-path "~/.emacs.d/enhanced-ruby-mode")
 (add-to-list 'load-path "~/.emacs.d/egg")
 (add-to-list 'load-path "~/.emacs.d/elisp/cucumber.el")
 (add-to-list 'load-path "~/.emacs.d/elisp/markdown-mode")
 
-(require 'egg)
-(require 'feature-mode)
+;; (require 'egg)
+;; (require 'feature-mode)
 
 (autoload 'hobo-register-agent "hobo" "" t)
 (autoload 'hobo-register-agent-from-file "hobo" "" t)
